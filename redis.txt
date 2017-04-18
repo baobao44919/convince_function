@@ -1,0 +1,98 @@
+一、Redis的下载地址
+
+Redis官方并没有提供Redis的windows安装包，但在github上， 有相关的下载地址，如下：
+
+https://github.com/ServiceStack/redis-windows/tree/master/downloads
+
+也可以到我的百度网盘下载，下载地址：http://pan.baidu.com/s/1gf2nuin，我下载的版本是redis-64.3.0.503.zip（64位的win系统，redis
+ 3.0版本）。
+
+
+
+
+二、Redis的安装和配置
+
+找到下载的压缩包 redis-64.3.0.503.zip，解压后，重命名为redis-3.0，置于某个文件夹下（如D:\Program Files）。
+
+1. 运行Redis服务器端
+
+直接双击D:\Program Files\redis-3.0目录下的redis-server.exe文件（redis服务器端），就会以窗口的形式运行Redis服务器（但该窗口不可关闭，否则，Redis服务不可用）。此种运行redis服务器的方式，没有加载指定的配置文件。
+
+
+
+
+2. 运行Redis客户端
+
+直接双击D:\Program Files\redis-3.0目录下的redis-cli.exe文件（redis客户端），如果显示127.0.0.1:6379> ，就说明客户端运行成功。
+
+输入命令： keys * 
+
+查看所有的键
+
+如果提示“NOAUTH Authentication required.”，则说明Redis服务器设置了密码，请输入正确的密码后，再来进行其他操作。
+
+输入命令： auth 密码
+
+如果提示OK，就说明密码正确。
+
+Tips：可以将D:\Program Files\redis-3.0目录下的redis-server.exe发送到桌面快捷方式，便于以后快速打开Redis客户端。
+
+
+
+
+3. 将Redis服务安装到本地服务
+
+由于上述启动Redis服务器的方式有点复杂，且redis服务窗口不可关闭。故这里介绍如何将Redis服务安装到Windows系统的本地服务。
+
+复制D:\Program Files\redis-3.0目录下的redis.windows.conf文件，重命名为redis.conf，来作为redis的配置文件。
+
+打开win系统的命令行，依次输入下列命令：
+
+d: （回车，切换到d盘）
+
+cd Program Files\redis-3.0\ （回车，切换至D:\Program Files\redis-3.0目录）
+
+redis-server --service-install redis.conf --loglevel verbose （回车，安装redis本地服务，指定配置文件redis.conf）
+
+操作完成后，就可以到win系统的本地服务管理处，查看和操作Redis服务。（计算机图标右键 -> 管理） -> 服务和应用程序 -> 服务）
+
+
+
+
+4. 设置Redis密码
+
+编辑D:\Program Files\redis-3.0目录下的redis.conf配置文件，找到如下代码：
+
+# requirepass foobared
+
+将其复制一行，去掉前导的#注释符，将foobared改为你要设置的密码，如：
+
+requirepass test
+
+保存退出。
+
+重启Redis服务，配置文件就会生效。
+
+
+
+
+5. 如何卸载Redis本地服务
+
+打开win系统命令行，依次输入下列命令：
+
+d:
+
+cd Program Files\redis-3.0\
+
+redis-server --service-uninstall
+
+就可将Redis本地服务卸载。
+
+
+
+
+6. 安装Redis Desktop Manager
+
+Redis Desktop Manager是一个可视化的Redis数据库管理工具，使用非常简单，这里不做介绍。
+
+下载地址：http://pan.baidu.com/s/1i44AXal
